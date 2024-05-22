@@ -17,22 +17,27 @@ public class ScreenEventReceiver extends BroadcastReceiver {
         long currentTimeMillis = System.currentTimeMillis();
         String actionString = "";
 
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+        SimpleDateFormat userFriendlyFormatted = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
         Date date = new Date();
 
         Log.d(TAG, "onReceive");
 
         if (Intent.ACTION_SCREEN_ON.equals(action)) {
-            actionString = formatter.format(date) + ": screen ON";
+            actionString = "screen ON";
         } else if (Intent.ACTION_SCREEN_OFF.equals(action)) {
-            actionString = formatter.format(date) + ": screen OFF";
+            actionString = "screen OFF";
         } else if (Intent.ACTION_USER_PRESENT.equals(action)) {
-            actionString = formatter.format(date) + ": device unlocked successfully";
+            actionString = "device unlocked";
         }
 
         // Broadcast the event locally within the app
         Intent localIntent = new Intent("com.example.screenevents.SCREEN_EVENT");
-        localIntent.putExtra("eventTime", actionString);
+        localIntent.putExtra("eventName", actionString);
+        localIntent.putExtra("userFriendlyTime", formatter.format(date));
+        localIntent.putExtra("eventTime", formatter.format(date));
+
         LocalBroadcastManager.getInstance(context).sendBroadcast(localIntent);
     }
 }

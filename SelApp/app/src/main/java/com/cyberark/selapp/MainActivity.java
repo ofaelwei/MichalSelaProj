@@ -30,16 +30,23 @@ public class MainActivity extends AppCompatActivity {
 
     private LinearLayout eventContainer;
 
+    private BackendAPI m_backendAPI = new BackendAPI();
+
     private TextView text;
     private LocalBroadcastManager localBroadcastManager;
     private BroadcastReceiver eventReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
+            String eventType = intent.getStringExtra("eventName");
+            String userFriendlyTime = intent.getStringExtra("userFriendlyTime");
             String eventTime = intent.getStringExtra("eventTime");
-            Log.d(TAG, "onReceive: " + eventTime);
-            if (eventTime != null) {
-                addEventTextView(eventTime);
-            }
+            addEventTextView(userFriendlyTime + ": " + eventType);
+            new Thread() {
+                @Override
+                public void run() {
+                    m_backendAPI.SendDataToBackend(eventType, eventTime);
+                }
+            }.start();
         }
     };
 
@@ -91,5 +98,4 @@ public class MainActivity extends AppCompatActivity {
         textView.setTextSize(16);
         eventContainer.addView(textView);
     }
-
 }
