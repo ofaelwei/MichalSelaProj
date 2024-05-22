@@ -1,0 +1,10 @@
+.center-content {
+    align-items: center; 
+    min-height: 100vh;
+}
+
+.submit-buttons-style{
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
