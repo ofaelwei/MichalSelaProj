@@ -1,6 +1,17 @@
 <div class="banner">
-    <img src="assets/MyArk.png" alt="Site Icon" class="site-icon">
-    <div class="top-banner-text">My Ark </div>
+        <img src="assets/MyArk.png" alt="Site Icon" class="site-icon">
+        <div class="top-banner-text">My Ark </div>
 </div>
 
-<app-dashboard-page></app-dashboard-page>
+<p-card>
+    <p-tabView>
+            <p-tabPanel class="my-tab-header" header="Dashboard">
+                <app-dashboard-page></app-dashboard-page>
+            </p-tabPanel>
+            <p-tabPanel header="Alerts">
+                <app-dashboard-page></app-dashboard-page>
+            </p-tabPanel>
+    </p-tabView>
+</p-card>
+
+    

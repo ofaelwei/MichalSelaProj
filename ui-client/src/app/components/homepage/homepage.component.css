@@ -18,3 +18,22 @@
     color: #EB3582;
     margin-left: 20px;
   }
+/* .p-element .p-ripple .p-tabview-nav-link .a{
+    border-color: white ;
+    background: white;
+    color: navy !important;
+    } */
+
+    /* .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
+        background-color: #ffffff;
+        border-color: #e2e8f0;
+        color: #EB3582 !important;
+
+         */
+    /* } */
+
+    .my-tab-header .p-tabview-nav .p-tabview-nav-li.p-highlight {
+        background-color: #ffffff;
+        border-color: #e2e8f0;
+        color: #EB3582 !important;
+    }
