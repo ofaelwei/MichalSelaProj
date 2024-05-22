@@ -16,7 +16,7 @@ export class LoginPageComponent {
   }
 
   falseRedirect() {
-    this.router.navigate(['/dashboard']);
+    this.router.navigate(['/homepage']);
   }
 
 
