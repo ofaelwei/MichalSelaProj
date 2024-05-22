@@ -1,5 +1,9 @@
 package com.cyberark.selapp;
 
+import static androidx.core.app.ActivityCompat.startActivityForResult;
+
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -10,6 +14,7 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import android.provider.Settings;
 import android.util.Log;
 import android.widget.LinearLayout;
 
@@ -47,6 +52,17 @@ public class MainActivity extends AppCompatActivity {
                     m_backendAPI.SendDataToBackend(eventType, eventTime);
                 }
             }.start();
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                // Check if the permission is not granted
+                if (!Settings.canDrawOverlays(context)) {
+                    // If not, create an Intent to request this permission
+                    Intent in = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
+                            Uri.parse("package:" + context.getPackageName()));
+                    // Start the activity
+                    startActivityForResult(in, 1);
+                }
+            }
         }
     };
 
@@ -78,8 +94,33 @@ public class MainActivity extends AppCompatActivity {
         IntentFilter intentFilter = new IntentFilter(Intent.ACTION_USER_PRESENT);
         intentFilter.addAction(Intent.ACTION_SCREEN_OFF);
         intentFilter.addAction(Intent.ACTION_SCREEN_ON);
-        //intentFilter.addAction(Intent.ACTIVITY);
         registerReceiver(screenEventReceiver, intentFilter);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            if (!Settings.canDrawOverlays(this)) {
+                Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
+                        Uri.parse("package:" + getPackageName()));
+                startActivityForResult(intent, 1);
+            }
+        } else {
+            if (!Settings.canDrawOverlays(this)) {
+                Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
+                        Uri.parse("package:" + getPackageName()));
+                startActivityForResult(intent, 1);
+            }
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                if (!Settings.canDrawOverlays(this)) {
+                    // Permission not granted, show a message to the user.
+                }
+            }
+        }
     }
 
     @Override

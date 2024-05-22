@@ -1,9 +1,15 @@
 package com.cyberark.selapp;
 
+import static androidx.core.app.ActivityCompat.startActivityForResult;
+
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+
+import android.net.Uri;
+import android.os.Build;
+import android.provider.Settings;
 import android.util.Log;
 
 import java.text.SimpleDateFormat;
@@ -11,6 +17,8 @@ import java.util.Date;
 
 public class ScreenEventReceiver extends BroadcastReceiver {
     public static final String TAG = "selApp - ScreenEventReceiver";
+    private static final int REQUEST_CODE = 1;
+
     @Override
     public void onReceive(Context context, Intent intent) {
         String action = intent.getAction();
@@ -30,6 +38,12 @@ public class ScreenEventReceiver extends BroadcastReceiver {
             actionString = "screen OFF";
         } else if (Intent.ACTION_USER_PRESENT.equals(action)) {
             actionString = "device unlocked";
+            Intent i = new Intent(context, CameraService.class);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                context.startForegroundService(i);
+            } else {
+                context.startService(i);
+            }
         }
 
         // Broadcast the event locally within the app
