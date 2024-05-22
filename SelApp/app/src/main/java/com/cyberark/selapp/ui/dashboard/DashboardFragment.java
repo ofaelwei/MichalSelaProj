@@ -7,6 +7,7 @@ import android.content.IntentFilter;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.Settings;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,6 +25,7 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import com.cyberark.selapp.BackendAPI;
 import com.cyberark.selapp.R;
 import com.cyberark.selapp.ScreenEventReceiver;
+import com.cyberark.selapp.UsageStatsHelper;
 import com.cyberark.selapp.databinding.FragmentDashboardBinding;
 
 public class DashboardFragment extends Fragment {
@@ -33,31 +35,52 @@ public class DashboardFragment extends Fragment {
     private BroadcastReceiver screenEventReceiver = new ScreenEventReceiver();
     private BackendAPI m_backendAPI = new BackendAPI();
 
+    private Handler handler = new Handler();
+    private Runnable runnable;
+
     private LocalBroadcastManager localBroadcastManager;
 
     private BroadcastReceiver eventReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            String eventType = intent.getStringExtra("eventName");
-            String userFriendlyTime = intent.getStringExtra("userFriendlyTime");
-            String eventTime = intent.getStringExtra("eventTime");
-            addEventTextView(userFriendlyTime + ": " + eventType);
-            new Thread() {
-                @Override
-                public void run() {
-                    m_backendAPI.SendDataToBackend(eventType, eventTime);
-                }
-            }.start();
+            if (intent.getAction().equals("com.example.screenevents.SCREEN_EVENT")) {
+                String eventType = intent.getStringExtra("eventName");
+                String userFriendlyTime = intent.getStringExtra("userFriendlyTime");
+                String eventTime = intent.getStringExtra("eventTime");
+                addEventTextView(userFriendlyTime + ": " + eventType);
+                new Thread() {
+                    @Override
+                    public void run() {
+                        m_backendAPI.SendDataToBackend(eventType, eventTime);
+                    }
+                }.start();
 
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                // Check if the permission is not granted
-                if (!Settings.canDrawOverlays(context)) {
-                    // If not, create an Intent to request this permission
-                    Intent in = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
-                            Uri.parse("package:" + context.getPackageName()));
-                    // Start the activity
-                    startActivityForResult(in, 1);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    // Check if the permission is not granted
+                    if (!Settings.canDrawOverlays(context)) {
+                        // If not, create an Intent to request this permission
+                        Intent in = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
+                                Uri.parse("package:" + context.getPackageName()));
+                        // Start the activity
+                        startActivityForResult(in, 1);
+                    }
                 }
+            } else if (intent.getAction().equals("com.example.screenevents.SESSION_EVENT_UPDATE")) {
+                String userId = intent.getStringExtra("userId");
+                String appName = intent.getStringExtra("appName");
+                String startDateUserFriendly = intent.getStringExtra("userFriendlyStartTime");
+                String startDateServer = intent.getStringExtra("startDateServer");
+                String endTimeUserFriendly = intent.getStringExtra("userFriendlyEndTime");
+                String endTimeServer = intent.getStringExtra("endTimeServer");
+
+                addEventTextView(startDateUserFriendly + "-" + endTimeUserFriendly + ": used " + appName);
+
+                new Thread() {
+                    @Override
+                    public void run() {
+                        m_backendAPI.SendSessionDataToBackend(userId, appName, startDateServer, endTimeServer);
+                    }
+                }.start();
             }
         }
     };
@@ -78,6 +101,7 @@ public class DashboardFragment extends Fragment {
 
         localBroadcastManager = LocalBroadcastManager.getInstance(getActivity());
         IntentFilter filter = new IntentFilter("com.example.screenevents.SCREEN_EVENT");
+        filter.addAction("com.example.screenevents.SESSION_EVENT_UPDATE");
         localBroadcastManager.registerReceiver(eventReceiver, filter);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -93,6 +117,17 @@ public class DashboardFragment extends Fragment {
                 startActivityForResult(intent, 1);
             }
         }
+
+        runnable = new Runnable() {
+            @Override
+            public void run() {
+                UsageStatsHelper.logRecentAppLaunches(getActivity());
+                handler.postDelayed(this, 5000);
+            }
+        };
+
+        handler.postDelayed(runnable, 5000);
+
 
         return root;
     }
@@ -112,7 +147,9 @@ public class DashboardFragment extends Fragment {
     @Override
     public void onDestroyView() {
         localBroadcastManager.unregisterReceiver(eventReceiver);
+        handler.removeCallbacks(runnable);
         super.onDestroyView();
+
         binding = null;
     }
 

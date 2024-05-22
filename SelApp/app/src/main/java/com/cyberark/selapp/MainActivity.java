@@ -1,4 +1,6 @@
 package com.cyberark.selapp;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -9,6 +11,7 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import android.provider.Settings;
 import android.widget.TextView;
 
 
@@ -38,5 +41,12 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(binding.navView, navController);
 
         getSupportActionBar().hide();
+
+        requestUsageStatsPermission(this);
+    }
+
+    public void requestUsageStatsPermission(Context context) {
+        Intent intent = new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS);
+        context.startActivity(intent);
     }
 }
