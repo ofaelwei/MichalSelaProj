@@ -8,3 +8,20 @@
     justify-content: center;
     margin-top: 20px;
 }
+
+/* .background {
+    background-image: url("^assets/BG.png");
+    background-size: cover;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  } */
+  
+  .card {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+    width: 300px; /* Adjust as needed */
+  }
