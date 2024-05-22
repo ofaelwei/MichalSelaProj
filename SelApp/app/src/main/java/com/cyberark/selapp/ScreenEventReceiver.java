@@ -26,7 +26,7 @@ public class ScreenEventReceiver extends BroadcastReceiver {
         String actionString = "";
 
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-        SimpleDateFormat userFriendlyFormatted = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat userFriendlyFormatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
         Date date = new Date();
 
@@ -49,7 +49,7 @@ public class ScreenEventReceiver extends BroadcastReceiver {
         // Broadcast the event locally within the app
         Intent localIntent = new Intent("com.example.screenevents.SCREEN_EVENT");
         localIntent.putExtra("eventName", actionString);
-        localIntent.putExtra("userFriendlyTime", formatter.format(date));
+        localIntent.putExtra("userFriendlyTime", userFriendlyFormatter.format(date));
         localIntent.putExtra("eventTime", formatter.format(date));
 
         LocalBroadcastManager.getInstance(context).sendBroadcast(localIntent);
