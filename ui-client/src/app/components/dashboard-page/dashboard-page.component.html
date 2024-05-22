@@ -1,1 +1,34 @@
-<p>dashboard-page works!</p>
+<p> </p>
+
+<div *ngIf="combinedItems | async as itemsList; else loading">
+  <p-timeline [value]="itemsList" layout="vertical" align="alternate" styleClass="custom-timeline">
+    <ng-template pTemplate="content" let-item>
+      <p-card class="custom-card">
+        <ng-template pTemplate="header">
+          <div 
+            class="event-header" 
+            [ngClass]="{
+              'picture-header': item.eventName === 'Picture',
+              'event-header': item.eventName !== 'Picture' && item.eventName !== 'App Session',
+              'app-session-header': item.eventName === 'App Session'
+            }">
+            {{ item.eventName === 'Picture' ? 'Picture Capture' : item.eventName }}
+          </div>
+        </ng-template>
+        <div class="event-body">
+          <p *ngIf="item.eventName !== 'App Session'"><strong>User:</strong> {{ item.userId }}</p>
+          <p *ngIf="item.eventName !== 'App Session'"><strong>Time:</strong> {{ item.eventTime | date:'short' }}</p>
+          <img *ngIf="item.eventName === 'Picture'" [src]="item.photo" alt="Picture" style="max-width: 100%; height: auto;" />
+          <div *ngIf="item.eventName === 'App Session'">
+            <p><strong>App:</strong> {{ item.appName }}</p>
+            <p><strong>Start:</strong> {{ item.startSession | date:'short' }}</p>
+            <p><strong>End:</strong> {{ item.endSession | date:'short' }}</p>
+          </div>
+        </div>
+      </p-card>
+    </ng-template>
+  </p-timeline>
+</div>
+<ng-template #loading>
+  <p>Loading items...</p>
+</ng-template>

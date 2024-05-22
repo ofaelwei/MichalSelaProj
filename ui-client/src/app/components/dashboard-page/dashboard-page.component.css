@@ -1,0 +1,43 @@
+.custom-timeline .p-timeline-event-opposite {
+    flex: 0;
+  }
+  
+  .custom-timeline .p-timeline-event-content {
+    margin: 0 1rem;
+  }
+  
+  .custom-card {
+    width: 40%; /* Adjusted to make the cards smaller */
+    text-align: left;
+    background-color: #fce4ec; /* High-tech pink background */
+    margin: 0.5rem 0; /* Adding some margin between the cards */
+  }
+  
+  .event-header {
+    font-weight: bold;
+    font-size: 1.2rem;
+    background-color: #f8bbd0; /* Pink background for events */
+    color: white; /* Make the header text white */
+    padding: 0.5rem;
+  }
+  
+  .picture-header {
+    font-weight: bold;
+    font-size: 1.2rem;
+    background-color: #ffcccb; /* Light red background for pictures */
+    color: white; /* Make the header text white */
+    padding: 0.5rem;
+  }
+  
+  .app-session-header {
+    font-weight: bold;
+    font-size: 1.2rem;
+    background-color: #add8e6; /* Light blue background for app sessions */
+    color: white; /* Make the header text white */
+    padding: 0.5rem;
+  }
+  
+  .event-body {
+    padding: 0.5rem;
+  }
+  

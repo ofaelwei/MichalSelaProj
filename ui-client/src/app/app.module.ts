@@ -10,6 +10,10 @@ import { TabViewModule } from 'primeng/tabview';
 import { TabMenuModule } from 'primeng/tabmenu';
 import { HomepageComponent } from './components/homepage/homepage.component';
 import { MenubarModule } from 'primeng/menubar';
+import { EventService } from './services/events.service';
+import { TimelineModule } from 'primeng/timeline';
+import { CardModule } from 'primeng/card';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -26,9 +30,12 @@ import { MenubarModule } from 'primeng/menubar';
     FormsModule,
     TabViewModule,
     TabMenuModule,
-    MenubarModule
+    MenubarModule,
+    HttpClientModule,
+    TimelineModule,
+    CardModule
   ],
-  providers: [],
+  providers: [EventService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

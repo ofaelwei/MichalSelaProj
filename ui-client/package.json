@@ -18,6 +18,7 @@
     "@angular/platform-browser": "^17.3.0",
     "@angular/platform-browser-dynamic": "^17.3.0",
     "@angular/router": "^17.3.0",
+    "@frxjs/ngx-timeline": "^17.0.7",
     "bootstrap": "^5.3.3",
     "primeicons": "^7.0.0",
     "primeng": "^17.17.0",
