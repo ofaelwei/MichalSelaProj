@@ -14,6 +14,10 @@ import { EventService } from './services/events.service';
 import { TimelineModule } from 'primeng/timeline';
 import { CardModule } from 'primeng/card';
 import { HttpClientModule } from '@angular/common/http';
+import { MenuModule } from 'primeng/menu';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { DynamicTabDirective } from './components/homepage/dynamic-tab.directive';
+
 
 
 @NgModule({
@@ -21,7 +25,8 @@ import { HttpClientModule } from '@angular/common/http';
     AppComponent,
     LoginPageComponent,
     DashboardPageComponent,
-    HomepageComponent
+    HomepageComponent,
+    DynamicTabDirective
   ],
   imports: [
     BrowserModule,
@@ -33,9 +38,11 @@ import { HttpClientModule } from '@angular/common/http';
     MenubarModule,
     HttpClientModule,
     TimelineModule,
-    CardModule
+    CardModule,
+    MenuModule,
+    BrowserAnimationsModule
   ],
   providers: [EventService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule { }

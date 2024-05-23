@@ -1,17 +1,21 @@
-<div class="banner">
+<div class="wrapper">
+    <nav id="sidebar">
+      <div class="sidebar-header">
         <img src="assets/MyArk.png" alt="Site Icon" class="site-icon">
-        <div class="top-banner-text">My Ark </div>
-</div>
-
-<p-card>
-    <p-tabView>
-            <p-tabPanel class="my-tab-header" header="Dashboard">
-                <app-dashboard-page></app-dashboard-page>
-            </p-tabPanel>
-            <p-tabPanel header="Alerts">
-                <app-dashboard-page></app-dashboard-page>
-            </p-tabPanel>
-    </p-tabView>
-</p-card>
-
-    
+        <h3 class="top-banner-text">My Ark</h3>
+      </div>
+      <ul class="list-unstyled components">
+        <li *ngFor="let item of items" [class.active]="item === activeItem" (click)="onMenuItemClick(item)">
+          <a href="javascript:void(0)">
+            <i [class]="item.icon"></i> {{ item.label }}
+          </a>
+        </li>
+      </ul>
+    </nav>
+    <div id="content">
+      <div class="content-display">
+        <ng-template appDynamicTab></ng-template>
+      </div>
+    </div>
+  </div>
+  
