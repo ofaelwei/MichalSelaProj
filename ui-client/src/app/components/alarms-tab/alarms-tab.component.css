@@ -1,0 +1,32 @@
+.malicious-apps {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    padding: 1rem;
+    background-color: white; /* Add this line to set the background color to white */
+  }
+  
+  .app-card {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 1rem;
+    width: 300px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: white; /* Ensure each card also has a white background */
+  }
+  
+  .header {
+    font-size: 1.2rem;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+  }
+  
+  .header i {
+    margin-right: 0.5rem;
+  }
+  
+  .description {
+    margin-top: 0.5rem;
+  }
+  

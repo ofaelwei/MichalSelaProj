@@ -17,7 +17,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { MenuModule } from 'primeng/menu';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DynamicTabDirective } from './components/homepage/dynamic-tab.directive';
-
+import { AlarmsTabComponent } from './components/alarms-tab/alarms-tab.component';
+import { TableModule } from 'primeng/table';
+import { MaliciousAppsComponent } from './components/malicious-apps/malicious-apps.component';
 
 
 @NgModule({
@@ -26,7 +28,9 @@ import { DynamicTabDirective } from './components/homepage/dynamic-tab.directive
     LoginPageComponent,
     DashboardPageComponent,
     HomepageComponent,
-    DynamicTabDirective
+    DynamicTabDirective,
+    AlarmsTabComponent,
+    MaliciousAppsComponent,
   ],
   imports: [
     BrowserModule,
@@ -40,7 +44,8 @@ import { DynamicTabDirective } from './components/homepage/dynamic-tab.directive
     TimelineModule,
     CardModule,
     MenuModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    TableModule
   ],
   providers: [EventService],
   bootstrap: [AppComponent],

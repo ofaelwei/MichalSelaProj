@@ -1,0 +1,12 @@
+<div class="malicious-apps">
+    <div class="app-card" *ngFor="let app of apps">
+      <div class="header">
+        <i [class]="getSecurityIcon(app.security)" [style.color]="getSecurityColor(app.security)"></i>
+        {{ app.header }}
+      </div>
+      <div class="description">
+        {{ app.description }}
+      </div>
+    </div>
+  </div>
+  

@@ -2,7 +2,8 @@ import { Component, OnInit, ViewChild, ComponentFactoryResolver, AfterViewInit }
 import { MenuItem } from 'primeng/api';
 import { DynamicTabDirective } from './dynamic-tab.directive';
 import { DashboardPageComponent } from '../dashboard-page/dashboard-page.component';
-import { LoginPageComponent } from '../login-page/login-page.component';
+import { AlarmsTabComponent } from '../alarms-tab/alarms-tab.component';
+import { MaliciousAppsComponent } from '../malicious-apps/malicious-apps.component';
 
 @Component({
   selector: 'app-homepage',
@@ -13,11 +14,12 @@ export class HomepageComponent implements OnInit, AfterViewInit {
   items: MenuItem[] = [];
   activeItem: MenuItem | undefined;
 
-  @ViewChild(DynamicTabDirective, {static: true}) dynamicTab!: DynamicTabDirective;
+  @ViewChild(DynamicTabDirective, { static: true }) dynamicTab!: DynamicTabDirective;
 
   private componentMapping: { [key: string]: any } = {
     'Events Time Line': DashboardPageComponent,
-    'Login': LoginPageComponent
+    'Alarms': AlarmsTabComponent,
+    'Malicious Apps': MaliciousAppsComponent,
   };
 
   constructor(private componentFactoryResolver: ComponentFactoryResolver) { }
@@ -25,7 +27,8 @@ export class HomepageComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.items = [
       { label: 'Events Time Line', icon: 'pi pi-home' },
-      { label: 'Login', icon: 'pi pi-sign-in' },
+      { label: 'Alarms', icon: 'pi pi-bell' },
+      { label: 'Malicious Apps', icon: 'pi pi-exclamation-triangle' }
     ];
 
     this.activeItem = this.items[0];
