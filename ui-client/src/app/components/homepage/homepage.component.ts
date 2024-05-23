@@ -8,18 +8,4 @@ import { MenuItem } from 'primeng/api';
 })
 export class HomepageComponent {
 
-  items: MenuItem[] | undefined;
-
-  activeItem: MenuItem | undefined;
-  
-    ngOnInit() {
-      this.items = [
-      { label: 'Dashboard', icon: 'pi pi-home' },
-      { label: 'Transactions', icon: 'pi pi-chart-line' },
-      { label: 'Products', icon: 'pi pi-list' },
-    ];
-
-    this.activeItem = this.items[0];
-  }
-
 }

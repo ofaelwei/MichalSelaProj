@@ -1,0 +1,61 @@
+<!-- <p-tabPanel header="Alarms">
+    <p-table [value]="alarms">
+      <ng-template pTemplate="header">
+        <tr>
+          <th>Name</th>
+          <th>Comment</th>
+          <th>Time</th>
+          <th>Severity</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-alarm>
+        <tr>
+          <td>{{alarm.name}}</td>
+          <td>{{alarm.comemt}}</td>
+          <td>{{alarm.time}}</td>
+          <td>{{alarm.severity}}</td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </p-tabPanel> -->
+  <p>   im here</p>
+<!-- <p-tabPanel header="Alarms">
+    <p-table [value]="alarms">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Name</th>
+                <th>Comment</th>
+                <th>Time</th>
+                <th>Severity</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-alarm>
+            <tr>
+                <td>{{alarm.name}}</td>
+                <td>{{alarm.comment}}</td>
+                <td>{{alarm.time | date:'short'}}</td>
+                <td>{{alarm.severity}}</td>
+            </tr>
+        </ng-template>
+    </p-table>
+</p-tabPanel> -->
+<!-- alarm.component.html -->
+<p-table [value]="alarms">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Name</th>
+        <th>Time</th>
+        <th>Comment</th>
+        <th>Severity</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-alarm>
+      <tr>
+        <td>{{ alarm.name }}</td>
+        <td>{{ alarm.time | date: 'short' }}</td>
+        <td>{{ alarm.comment }}</td>
+        <td>{{ alarm.severity }}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+  

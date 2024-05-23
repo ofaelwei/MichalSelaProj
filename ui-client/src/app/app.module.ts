@@ -14,6 +14,9 @@ import { EventService } from './services/events.service';
 import { TimelineModule } from 'primeng/timeline';
 import { CardModule } from 'primeng/card';
 import { HttpClientModule } from '@angular/common/http';
+import { TableModule } from 'primeng/table';
+import { AlarmsTabComponent } from './components/alarms-tab/alarms-tab.component';
+
 
 
 @NgModule({
@@ -21,7 +24,8 @@ import { HttpClientModule } from '@angular/common/http';
     AppComponent,
     LoginPageComponent,
     DashboardPageComponent,
-    HomepageComponent
+    HomepageComponent,
+    AlarmsTabComponent
   ],
   imports: [
     BrowserModule,
@@ -33,7 +37,9 @@ import { HttpClientModule } from '@angular/common/http';
     MenubarModule,
     HttpClientModule,
     TimelineModule,
-    CardModule
+    CardModule,
+    TableModule
+
   ],
   providers: [EventService],
   bootstrap: [AppComponent]
